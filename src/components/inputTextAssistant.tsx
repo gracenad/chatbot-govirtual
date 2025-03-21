@@ -16,7 +16,7 @@ const InputTextAssistant: React.FC<InputTextAssistantProps> = ({
 
   const handleSend = () => {
     if (textInput.trim()) {
-      console.log("📡 onSendMessage menerima pesan:", textInput);
+      // console.log("onsendmssg:", textInput);
       onSendMessage(textInput);
       setTextInput("");
     }

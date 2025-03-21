@@ -69,19 +69,20 @@ const GoVirtualAssistant: FC<GoVirtualAssistantProps> = ({ onClose }) => {
   useEffect(() => {
     establishSocket();
   }, []);
+  
 
-  useEffect(() => {
-    establishedSocketRef.current?.listenMessageAssistant((message) => {
-      console.log('Pesan dari server:', message);
-      // Lakukan tindakan lebih lanjut berdasarkan pesan yang diterima
-      // Misalnya, update state atau tampilkan pesan di UI
-      // Contoh:
-      // setSuggestion([message]); // Contoh jika ingin menambahkan ke suggestion
-    });
-  }, []);
+  // useEffect(() => {
+  //   establishedSocketRef.current?.listenMessageAssistant((message) => {
+  //     console.log('Pesan dari server:', message);
+  //     // Lakukan tindakan lebih lanjut berdasarkan pesan yang diterima
+  //     // Misalnya, update state atau tampilkan pesan di UI
+  //     // Contoh:
+  //     // setSuggestion([message]); // Contoh jika ingin menambahkan ke suggestion
+  //   });
+  // }, []);
   
   useEffect(() => {
-    console.log('statusAssistant: ', statusAssistant);
+    // console.log('statusAssistant: ', statusAssistant);
     if (statusAssistant === 'thinking') {
       onStopRecording();
     }
@@ -95,22 +96,8 @@ const GoVirtualAssistant: FC<GoVirtualAssistantProps> = ({ onClose }) => {
     }
   }, [messages]);
 
-  // const handleSendMessages = (val: string) => {
-  //   console.log("Value handleSendMessages: ", val);
-  //   setSuggestion([]);
-  //   establishedSocketRef.current?.emitTextInput({ text: val }, (ack) => {
-  //     if (ack.status === 'success') {
-  //       console.log('Pesan berhasil dikirim:', ack.message);
-  //       // Tangani respons dari server di sini
-  //     } else {
-  //       console.error('Pesan gagal terkirim:', ack.error);
-  //     }
-  //   });
-  //   setIsThinking(true);
-  // };
-
   const handleSendMessages = (val: string) => {
-    console.log("Value handleSendMessages: ", val);
+    console.log("val handle: ", val);
     setSuggestion([]);
     
     // Kirim pesan ke server melalui WebSocket
@@ -119,7 +106,7 @@ const GoVirtualAssistant: FC<GoVirtualAssistantProps> = ({ onClose }) => {
         console.log('Pesan berhasil dikirim:', ack.message);
         // Set thinking state ke true setelah pengiriman pesan
         // TODO: Pastiin ketika menerima respons dari server, thinking state diubah kembali ke false
-        setIsThinking(true);
+        setIsThinking(false);
         // TODO: Pastikan kalo tidak ada pesan yang diterima, maka dibuat tampilan error
       } else {
         console.error('Pesan gagal terkirim:', ack.error);
@@ -135,6 +122,7 @@ const GoVirtualAssistant: FC<GoVirtualAssistantProps> = ({ onClose }) => {
     // });
     establishedSocketRef.current?.listenMessageAssistant((message) => {
       console.log('Pesan dari server:', message);
+      setIsThinking(false);
       // Lakukan tindakan lebih lanjut berdasarkan pesan yang diterima
       // Misalnya, update state atau tampilkan pesan di UI
       // Contoh:

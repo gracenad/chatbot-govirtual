@@ -121,7 +121,7 @@ export class GoVirtualEventWebSocket {
 		payload: TextInputPayload,
 		onAck?: (ack: Acknowledgment) => void,
 	) => {
-    console.log('Emitting text input:', payload);
+    console.log('ni payloadnya:', payload);
     // TODO: kenapa tidak masuk ke text_input? padahal payloadnya sudah terbaca. Bagaimana cara memastikan kalau pesan masuk ke ack
 		this.sio.emit('text_input', payload, (ack: Acknowledgment) => {
       console.log('ack: ', ack);
